@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "JsEvaluator", "JsEvaluator\JsEvaluator.fsproj", "{4300FB7D-AA72-479A-894D-A29EB6002450}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "JsEvaluator.Specs", "JsEvaluator.Specs\JsEvaluator.Specs.fsproj", "{B630AE6F-0F00-46EF-B2C9-461940962577}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{4300FB7D-AA72-479A-894D-A29EB6002450}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4300FB7D-AA72-479A-894D-A29EB6002450}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4300FB7D-AA72-479A-894D-A29EB6002450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B630AE6F-0F00-46EF-B2C9-461940962577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B630AE6F-0F00-46EF-B2C9-461940962577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B630AE6F-0F00-46EF-B2C9-461940962577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B630AE6F-0F00-46EF-B2C9-461940962577}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
