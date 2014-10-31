@@ -9,6 +9,12 @@ type TestContext
     member self.Environment 
       with get () : Environment = self?environment
       and set (value:Environment) = self?environment <- value
+    member self.ChildEnvironment 
+      with get () : Environment = self?childEnvironment
+      and set (value:Environment) = self?childEnvironment <- value
+
+let foo = JsString "Foo"
+let bar = JsString "Bar"
 
 let specs = 
   describe "Environment" [
@@ -22,10 +28,28 @@ let specs =
       ]
 
       context "when variable exists" [
-        before (fun x -> x.Environment.Add "key" (JsString "Foo"))
+        before (fun x -> x.Environment.Add "key" foo)
 
         it "returns the value" (fun c ->
-          c.Environment.Get "key" |> should (be.equalTo (JsString "Foo")))
+          c.Environment.Get "key" |> should (be.equalTo foo))
+      ]
+
+      context "when in a child environment" [
+        before (fun x -> x.ChildEnvironment <- x.Environment |> Environment.CreateChild)
+
+        context "when variable exists in parent environment" [
+          before (fun x -> x.Environment.Add "key" foo)
+
+          it "returns the value" (fun x ->
+            x.ChildEnvironment.Get "key" |> should (be.equalTo foo))
+
+          context "when different variable exists in child environment" [
+            before (fun x -> x.ChildEnvironment.Add "key" bar)
+
+            it "returns original value in parent environment" (fun x ->
+              x.Environment.Get "key" |> should (be.equalTo foo))
+          ]
+        ]
       ]
     ]
   ]
