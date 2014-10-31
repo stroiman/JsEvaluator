@@ -16,5 +16,10 @@ type Environment = {
         | Some x, _ -> x
         | None, Some p -> p.Get name
         | None, None -> JsUndefined
+    member self.Set name value =
+        match self.data.ContainsKey name, self.parent with
+        | true, _ -> self.Add name value
+        | false, Some x -> x.Set name value
+        | false, None -> failwith "Cannot set undefined variable"
     static member Create () = { parent = None; data = Map.empty }
     static member CreateChild x = { parent = Some x; data = Map.empty }

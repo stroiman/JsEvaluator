@@ -20,7 +20,20 @@ let specs =
   describe "Environment" [
     before (fun ctx -> ctx.Environment <- Environment.Create ())
 
-    describe ".getVariable()" [
+    describe ".Set() " [
+      context "when in child environment" [
+        before (fun c -> c.ChildEnvironment <- c.Environment |> Environment.CreateChild)
+
+        context "when var exists in parent" [
+          before (fun c -> c.Environment.Add "key" foo)
+
+          it "updates the parent" (fun c ->
+            c.ChildEnvironment.Set "key" bar
+            c.Environment.Get "key" |> should (be.equalTo bar))
+        ]
+      ]
+    ]
+    describe ".Get()" [
       context "when variable doesn't exist" [
         it "returns 'undefined'" (fun c ->
           c.Environment.Get "foo" |> should (be.equalTo JsUndefined)
