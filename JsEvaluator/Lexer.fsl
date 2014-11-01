@@ -1,0 +1,6 @@
+﻿{
+module Lexer
+}
+
+rule token = parse
+    | eof       { 0 }

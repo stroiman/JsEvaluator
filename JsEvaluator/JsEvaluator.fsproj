@@ -46,6 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Runtime.fs" />
+    <FsLex Include="Lexer.fsl" >
+      <OtherFlags>--unicode</OtherFlags>
+    </FsLex>
+    <Compile Include="Lexer.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
