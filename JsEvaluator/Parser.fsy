@@ -1,8 +1,13 @@
 ﻿%{
+open Ast
 %}
 %start start
 %token EOF
-%token NUMBER<double>
-%type < JsProgram > start
+%token < double > NUMBER
+%type < Program > start
 %%
 
+start:
+    | NUMBER EOF    { let expression = NumberLiteral $1
+                      let stmt = ExpressionStmt expression
+                      Program [ stmt ] }

@@ -2,8 +2,12 @@
  
 module Lexer
 open Microsoft.FSharp.Text.Lexing
+open Parser
 
-# 6 "Lexer.fs"
+let getString = LexBuffer<_>.LexemeString
+let getDouble = getString >> System.Double.Parse
+
+# 10 "Lexer.fs"
 let trans : uint16[] array = 
     [| 
     (* State 0 *)
@@ -22,14 +26,14 @@ and token  (lexbuf : Microsoft.FSharp.Text.Lexing.LexBuffer<_>) = _fslex_token  
 and _fslex_token  _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 10 "Lexer.fsl"
-                                 lexbuf |> LexBuffer<_>.LexemeString |> System.Int32.Parse 
-# 27 "Lexer.fs"
+# 14 "Lexer.fsl"
+                                 lexbuf |> getDouble |> NUMBER 
+# 31 "Lexer.fs"
           )
   | 1 -> ( 
-# 11 "Lexer.fsl"
-                                 0 
-# 32 "Lexer.fs"
+# 15 "Lexer.fsl"
+                                 EOF 
+# 36 "Lexer.fs"
           )
   | _ -> failwith "token"
 

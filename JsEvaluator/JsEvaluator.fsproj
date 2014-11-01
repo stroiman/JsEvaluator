@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Ast.fs" />
     <Compile Include="Runtime.fs" />
-    <FsYacc Include="Parser.fsy" >
+    <FsYacc Include="Parser.fsy">
       <OtherFlags>--module Parser</OtherFlags>
     </FsYacc>
     <FsLex Include="Lexer.fsl">

@@ -1,11 +1,15 @@
 ﻿{
 module Lexer
 open Microsoft.FSharp.Text.Lexing
+open Parser
+
+let getString = LexBuffer<_>.LexemeString
+let getDouble = getString >> System.Double.Parse
 }
 
 let digit = ['0' - '9']
 let number = digit*
 
 rule token = parse
-    | number    { lexbuf |> LexBuffer<_>.LexemeString |> System.Int32.Parse }
-    | eof       { 0 }
+    | number    { lexbuf |> getDouble |> NUMBER }
+    | eof       { EOF }

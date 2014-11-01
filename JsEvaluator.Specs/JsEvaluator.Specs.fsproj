@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnvironmentSpec.fs" />
+    <Compile Include="ParserSpecs.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
