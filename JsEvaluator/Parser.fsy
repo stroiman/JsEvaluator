@@ -1,0 +1,8 @@
+﻿%{
+%}
+%start start
+%token EOF
+%token NUMBER<double>
+%type < JsProgram > start
+%%
+
