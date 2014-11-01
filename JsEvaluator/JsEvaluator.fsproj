@@ -45,6 +45,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ast.fs" />
     <Compile Include="Runtime.fs" />
     <FsYacc Include="Parser.fsy" >
       <OtherFlags>--module Parser</OtherFlags>
