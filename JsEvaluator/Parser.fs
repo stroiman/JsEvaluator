@@ -22,6 +22,8 @@ type tokenId =
 type nonTerminalId = 
     | NONTERM__startstart
     | NONTERM_start
+    | NONTERM_statement
+    | NONTERM_expression
 
 // This function maps tokens to integers indexes
 let tagOfToken (t:token) = 
@@ -43,6 +45,8 @@ let prodIdxToNonTerminal (prodIdx:int) =
   match prodIdx with
     | 0 -> NONTERM__startstart 
     | 1 -> NONTERM_start 
+    | 2 -> NONTERM_statement 
+    | 3 -> NONTERM_expression 
     | _ -> failwith "prodIdxToNonTerminal: bad production index"
 
 let _fsyacc_endOfInputTag = 4 
@@ -59,18 +63,18 @@ let _fsyacc_dataOfToken (t:token) =
   match t with 
   | NUMBER _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
   | EOF  -> (null : System.Object) 
-let _fsyacc_gotos = [| 0us; 65535us; 1us; 65535us; 0us; 1us; |]
-let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; |]
-let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 1us; |]
-let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; |]
-let _fsyacc_action_rows = 4
-let _fsyacc_actionTableElements = [|1us; 32768us; 0us; 2us; 0us; 49152us; 1us; 32768us; 1us; 3us; 0us; 16385us; |]
-let _fsyacc_actionTableRowOffsets = [|0us; 2us; 3us; 5us; |]
-let _fsyacc_reductionSymbolCounts = [|1us; 2us; |]
-let _fsyacc_productionToNonTerminalTable = [|0us; 1us; |]
-let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 16385us; |]
+let _fsyacc_gotos = [| 0us; 65535us; 1us; 65535us; 0us; 1us; 1us; 65535us; 0us; 2us; 1us; 65535us; 0us; 4us; |]
+let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 3us; 5us; |]
+let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 1us; 1us; 2us; 1us; 3us; |]
+let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; 8us; 10us; |]
+let _fsyacc_action_rows = 6
+let _fsyacc_actionTableElements = [|1us; 32768us; 0us; 5us; 0us; 49152us; 1us; 32768us; 1us; 3us; 0us; 16385us; 0us; 16386us; 0us; 16387us; |]
+let _fsyacc_actionTableRowOffsets = [|0us; 2us; 3us; 5us; 6us; 7us; |]
+let _fsyacc_reductionSymbolCounts = [|1us; 2us; 1us; 1us; |]
+let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 3us; |]
+let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 16385us; 16386us; 16387us; |]
 let _fsyacc_reductions ()  =    [| 
-# 73 "Parser.fs"
+# 77 "Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data :  Program )) in
             Microsoft.FSharp.Core.Operators.box
@@ -79,21 +83,41 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startstart));
-# 82 "Parser.fs"
+# 86 "Parser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'statement)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 11 "Parser.fsy"
+                                               Program [ _1 ] 
+                   )
+# 11 "Parser.fsy"
+                 :  Program ));
+# 97 "Parser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'expression)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 14 "Parser.fsy"
+                                           ExpressionStmt _1 
+                   )
+# 14 "Parser.fsy"
+                 : 'statement));
+# 108 "Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data :  double )) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 11 "Parser.fsy"
-                                           let expression = NumberLiteral _1
-                                           let stmt = ExpressionStmt expression
-                                           Program [ stmt ] 
+# 17 "Parser.fsy"
+                                           NumberLiteral _1 
                    )
-# 11 "Parser.fsy"
-                 :  Program ));
+# 17 "Parser.fsy"
+                 : 'expression));
 |]
-# 96 "Parser.fs"
+# 120 "Parser.fs"
 let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> = 
   { reductions= _fsyacc_reductions ();
     endOfInputTag = _fsyacc_endOfInputTag;

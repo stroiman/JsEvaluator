@@ -8,6 +8,10 @@ open Ast
 %%
 
 start:
-    | NUMBER EOF    { let expression = NumberLiteral $1
-                      let stmt = ExpressionStmt expression
-                      Program [ stmt ] }
+    | statement EOF     { Program [ $1 ] }
+
+statement:
+    | expression    { ExpressionStmt $1 }
+
+expression:
+    | NUMBER        { NumberLiteral $1 }
