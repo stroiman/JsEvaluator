@@ -2,3 +2,4 @@ source https://nuget.org/api/v2
 
 nuget fspec
 nuget fspec.mbunitwrapper
+nuget FsLexYacc
