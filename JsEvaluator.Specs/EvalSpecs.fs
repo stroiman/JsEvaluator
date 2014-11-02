@@ -10,6 +10,12 @@ let eval =
 
 let specs =
   describe "Js evaluation" [
+    context "variable lookup" [
+      it "returns the variable value" (fun _ ->
+        "var x = 42; x" |> eval
+        |> should (be.equalTo (JsNumber 42.0)))
+    ]
+
     context "when a single expression statement" [
       it "returns the value of the expression" (fun _ ->
         "5" |> eval |> should (be.equalTo (JsNumber 5.0)))

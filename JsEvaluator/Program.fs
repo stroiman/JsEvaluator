@@ -25,9 +25,14 @@ let eval (env:Environment) (program : Program) =
       match (evalExpr env x, evalExpr env y) with
       | JsNumber a, JsNumber b -> JsNumber (a - b)
       | _ -> failwith "Can only subtract numbers"
+    | VariableLookup x -> env.Get x
 
   let evalStmt (env:Environment) = function
     | ExpressionStmt x -> evalExpr env x
+    | VariableDefinition (n,x) ->
+        let value = evalExpr env x
+        env.Add n value
+        JsUndefined
 
   let rec evalStmtList (env:Environment) = function
     | [] -> JsUndefined
