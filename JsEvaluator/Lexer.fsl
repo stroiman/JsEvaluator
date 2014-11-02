@@ -9,6 +9,8 @@ let getDouble = getString >> System.Double.Parse
 
 let digit = ['0' - '9']
 let number = digit+
+let char = ['a'-'z' 'A'-'Z']
+let identifier = char+
 let whitespace = [' ' '\t' '\r' '\n']
 
 rule token = parse
@@ -16,5 +18,14 @@ rule token = parse
     | '+'           { PLUS }
     | '-'           { MINUS }
     | ';'           { SEMICOLON }
+    | '('           { LPARAN }
+    | ')'           { RPARAN }
+    | '{'           { LBRACE }
+    | '}'           { RBRACE }
+    | ','           { COMMA }
+    | '='           { EQUAL }
+    | "var"         { VAR }
+    | "function"    { FUNCTION }
+    | identifier    { lexbuf |> getString |> IDENTIFIER }
     | number        { lexbuf |> getDouble |> NUMBER }
     | eof           { EOF }

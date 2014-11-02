@@ -2,16 +2,34 @@
 module Parser
 type token = 
   | NUMBER of ( double )
+  | IDENTIFIER of ( string )
   | EOF
   | SEMICOLON
+  | EQUAL
+  | LPARAN
+  | RPARAN
+  | LBRACE
+  | RBRACE
+  | COMMA
   | MINUS
   | PLUS
+  | VAR
+  | FUNCTION
 type tokenId = 
     | TOKEN_NUMBER
+    | TOKEN_IDENTIFIER
     | TOKEN_EOF
     | TOKEN_SEMICOLON
+    | TOKEN_EQUAL
+    | TOKEN_LPARAN
+    | TOKEN_RPARAN
+    | TOKEN_LBRACE
+    | TOKEN_RBRACE
+    | TOKEN_COMMA
     | TOKEN_MINUS
     | TOKEN_PLUS
+    | TOKEN_VAR
+    | TOKEN_FUNCTION
     | TOKEN_end_of_input
     | TOKEN_error
 type nonTerminalId = 
@@ -19,6 +37,7 @@ type nonTerminalId =
     | NONTERM_start
     | NONTERM_statement
     | NONTERM_statementList
+    | NONTERM_argumentList
     | NONTERM_expression
 /// This function maps integers indexes to symbolic token ids
 val tagOfToken: token -> int

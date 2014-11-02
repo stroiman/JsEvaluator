@@ -16,6 +16,15 @@ let parseSingleExpression =
 
 let specs =
   describe "Parse" [
+    it "parses a function" (fun _ ->
+      let expected =
+        FunctionDefinition (
+          ["a"; "b"],
+          [ExpressionStmt (VariableLookup "a")
+           ExpressionStmt (VariableLookup "b")])
+      "function(a,b) { a; b }"
+      |> parseSingleExpression
+      |> should (be.equalTo expected))
     it "Parses a single number" (fun _ ->
       let expected = NumberLiteral 42.0
       "42" |> parseSingleExpression
@@ -36,4 +45,12 @@ let specs =
           ExpressionStmt (NumberLiteral 2.0)
         ]
       "1; 2" |> JsEval.parse |> should (be.equalTo expected))
+
+    it "Parses variable definition" (fun _ ->
+      let expected = VariableDefinition("x", NumberLiteral 42.0)
+      "var x = 42" |> parseSingleStatement |> should (be.equalTo expected))
+
+    it "Parses variable lookup" (fun _ ->
+      let expected = VariableLookup "x"
+      "x" |> parseSingleExpression |> should (be.equalTo expected))
   ]
