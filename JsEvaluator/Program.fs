@@ -44,24 +44,23 @@ let eval (env:Environment) (program : Program) =
             evalStmtList nestedEnv body
         | x -> failwithf "Not a function: %A" x
     | x -> failwithf "Cannot evaluate %A" x
-  and evalStmt (env:Environment) = function
-    | ExpressionStmt x -> evalExpr env x
-    | VariableDefinition (n,x) ->
-        let value = evalExpr env x
-        env.Add n value
-        JsUndefined
-  and evalStmtList (env:Environment) = function
-    | [] -> JsUndefined
-    | ReturnStmt x::_ -> evalExpr env x
-    | If(c,b)::rest ->
-      match evalExpr env c with
-      | JsBool(true) -> evalStmtList env (b@rest)
-      | JsBool(false) -> evalStmtList env rest
-      | x -> failwith "Not a boolean value: %A" x
-    | x::[] -> evalStmt env x
-    | x::xs ->
-      evalStmt env x |> ignore
-      evalStmtList env xs 
+  and evalStmtList (env:Environment) =
+    let rec iter last = function
+      | [] -> last
+      | x::xs ->
+        match x with
+        | ReturnStmt y -> evalExpr env y
+        | If(c,b) ->
+          match evalExpr env c with
+          | JsBool(true) -> evalStmtList env (b@xs)
+          | JsBool(false) -> evalStmtList env xs
+          | x -> failwith "Not a boolean value: %A" x
+        | ExpressionStmt x -> iter (evalExpr env x) xs
+        | VariableDefinition (n,x) ->
+            let value = evalExpr env x
+            env.Add n value
+            iter last xs
+    iter JsUndefined
 
   match program with
   | Program x -> evalStmtList env x
