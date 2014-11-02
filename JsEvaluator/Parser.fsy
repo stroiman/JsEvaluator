@@ -2,6 +2,7 @@
 open Ast
 %}
 %start start
+%token MINUS PLUS
 %token EOF
 %token < double > NUMBER
 %type < Program > start
@@ -15,3 +16,9 @@ statement:
 
 expression:
     | NUMBER        { NumberLiteral $1 }
+    | expression
+      PLUS
+      expression    { Plus($1, $3) }
+    | expression
+      MINUS
+      expression    { Minus($1, $3) }

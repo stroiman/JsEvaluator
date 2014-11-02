@@ -8,8 +8,12 @@ let getDouble = getString >> System.Double.Parse
 }
 
 let digit = ['0' - '9']
-let number = digit*
+let number = digit+
+let whitespace = [' ' '\t' '\r' '\n']
 
 rule token = parse
-    | number    { lexbuf |> getDouble |> NUMBER }
-    | eof       { EOF }
+    | whitespace*   { token lexbuf }
+    | '+'           { PLUS }
+    | '-'           { MINUS }
+    | number        { lexbuf |> getDouble |> NUMBER }
+    | eof           { EOF }

@@ -3,9 +3,13 @@ module Parser
 type token = 
   | NUMBER of ( double )
   | EOF
+  | MINUS
+  | PLUS
 type tokenId = 
     | TOKEN_NUMBER
     | TOKEN_EOF
+    | TOKEN_MINUS
+    | TOKEN_PLUS
     | TOKEN_end_of_input
     | TOKEN_error
 type nonTerminalId = 
