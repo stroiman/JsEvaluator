@@ -13,8 +13,11 @@ type token =
   | COMMA
   | MINUS
   | PLUS
+  | LESSOREQUAL
   | VAR
   | FUNCTION
+  | RET
+  | IF
 type tokenId = 
     | TOKEN_NUMBER
     | TOKEN_IDENTIFIER
@@ -28,8 +31,11 @@ type tokenId =
     | TOKEN_COMMA
     | TOKEN_MINUS
     | TOKEN_PLUS
+    | TOKEN_LESSOREQUAL
     | TOKEN_VAR
     | TOKEN_FUNCTION
+    | TOKEN_RET
+    | TOKEN_IF
     | TOKEN_end_of_input
     | TOKEN_error
 type nonTerminalId = 
@@ -38,6 +44,7 @@ type nonTerminalId =
     | NONTERM_statement
     | NONTERM_statementList
     | NONTERM_argumentList
+    | NONTERM_parameterList
     | NONTERM_expression
 /// This function maps integers indexes to symbolic token ids
 val tagOfToken: token -> int

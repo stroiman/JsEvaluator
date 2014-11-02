@@ -16,6 +16,25 @@ let parseSingleExpression =
 
 let specs =
   describe "Parse" [
+    describe "if statement" [
+      it "handles single-statement if" (fun _ ->
+        let expected =
+          If (
+            LessThanOrEqual(VariableLookup "a", VariableLookup "b"),
+            [ReturnStmt (VariableLookup "a")])
+        "if (a<=b) return a"
+        |> parseSingleStatement |> should (be.equalTo expected))
+    ]
+    it "parses function invocation" (fun _ ->
+      let expected = 
+        FunctionInvocation(
+          VariableLookup "a",
+          [VariableLookup "b";NumberLiteral 42.0])
+      "a(b,42)" |> parseSingleExpression |> should (be.equalTo expected))
+    it "parses return statement" (fun _ ->
+      let expected = ReturnStmt(NumberLiteral 42.0)
+      "return 42" |> parseSingleStatement |> should (be.equalTo expected))
+
     it "parses a function" (fun _ ->
       let expected =
         FunctionDefinition (
@@ -29,6 +48,10 @@ let specs =
       let expected = NumberLiteral 42.0
       "42" |> parseSingleExpression
       |> should (be.equalTo expected))
+
+    it "Parses <= operators" (fun _ ->
+      let expected = LessThanOrEqual ( NumberLiteral 2.0, NumberLiteral 1.0 ) 
+      "2 <= 1" |> parseSingleExpression |>should (be.equalTo expected))
 
     it "Parses + operators" (fun _ ->
       let expected = Plus ( NumberLiteral 2.0, NumberLiteral 1.0 ) 

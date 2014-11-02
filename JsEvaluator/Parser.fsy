@@ -2,8 +2,8 @@
 open Ast
 %}
 %start start
-%token VAR FUNCTION
-%token MINUS PLUS
+%token VAR FUNCTION RET IF
+%token MINUS PLUS LESSOREQUAL
 %token SEMICOLON EQUAL LPARAN RPARAN LBRACE RBRACE COMMA
 %token EOF
 %token < string > IDENTIFIER
@@ -16,10 +16,15 @@ start:
       EOF           { Program ($1 |> List.rev) }
 
 statement:
+    | IF LPARAN
+      expression RPARAN
+      statement     { If ($3, [$5]) }
     | expression    { ExpressionStmt $1 }
     | VAR IDENTIFIER 
       EQUAL
       expression    { VariableDefinition ($2,$4) }
+    | RET
+      expression    { ReturnStmt $2 }
 
 statementList:
     |               { [] }
@@ -35,6 +40,11 @@ argumentList:
       COMMA
       IDENTIFIER    { $3 :: $1 }
       
+parameterList:
+    |               { [] }
+    | expression    { [$1] }
+    | parameterList COMMA
+      expression    { $3::$1 }
 expression:
     | IDENTIFIER    { VariableLookup $1 }
     | NUMBER        { NumberLiteral $1 }
@@ -42,12 +52,13 @@ expression:
       PLUS
       expression    { Plus($1, $3) }
     | expression
+      LESSOREQUAL
+      expression    { LessThanOrEqual($1, $3) }
+    | expression
       MINUS
       expression    { Minus($1, $3) }
-    | FUNCTION
-      LPARAN
-      argumentList
-      RPARAN
-      LBRACE
-      statementList
+    | FUNCTION LPARAN argumentList RPARAN
+      LBRACE statementList
       RBRACE        { FunctionDefinition($3 |> List.rev , $6 |> List.rev) }
+    | expression LPARAN parameterList 
+      RPARAN        { FunctionInvocation ($1, $3 |> List.rev) }
