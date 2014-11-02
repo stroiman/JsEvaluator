@@ -5,7 +5,8 @@ open FSpec.Matchers
 open Runtime
 
 let eval =
-  JsEval.parse >> JsEval.eval
+  let env = Environment.Create ()
+  JsEval.parse >> JsEval.eval env
 
 let specs =
   describe "Js evaluation" [

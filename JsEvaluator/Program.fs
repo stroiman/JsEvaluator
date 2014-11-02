@@ -14,30 +14,30 @@ let parse input =
     let lexbuf = LexBuffer<_>.FromString input
     Parser.start token lexbuf
 
-let eval (program : Program) =
-  let rec evalExpr = function
+let eval (env:Environment) (program : Program) =
+  let rec evalExpr (env:Environment) = function
     | NumberLiteral x -> JsNumber x
     | Plus(x, y) ->
-      match (evalExpr x, evalExpr y) with
+      match (evalExpr env x, evalExpr env y) with
       | JsNumber a, JsNumber b -> JsNumber (a + b)
       | _ -> failwith "Can only subtract numbers"
     | Minus(x, y) ->
-      match (evalExpr x, evalExpr y) with
+      match (evalExpr env x, evalExpr env y) with
       | JsNumber a, JsNumber b -> JsNumber (a - b)
       | _ -> failwith "Can only subtract numbers"
 
-  let evalStmt = function
-    | ExpressionStmt x -> evalExpr x
+  let evalStmt (env:Environment) = function
+    | ExpressionStmt x -> evalExpr env x
 
-  let rec evalStmtList = function
+  let rec evalStmtList (env:Environment) = function
     | [] -> JsUndefined
-    | x::[] -> evalStmt x
+    | x::[] -> evalStmt env x
     | x::xs ->
-      evalStmt x |> ignore
-      evalStmtList xs 
+      evalStmt env x |> ignore
+      evalStmtList env xs 
 
   match program with
-  | Program x -> evalStmtList x
+  | Program x -> evalStmtList env x
 
 [<EntryPoint>]
 let main argv = 
