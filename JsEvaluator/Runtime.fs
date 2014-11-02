@@ -2,6 +2,7 @@
 
 type JsVariableType =
   | JsUndefined
+  | JsNumber of double
   | JsString of string
 
 type Environment = {
