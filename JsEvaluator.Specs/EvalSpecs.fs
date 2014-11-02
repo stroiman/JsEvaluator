@@ -18,4 +18,12 @@ let specs =
       it "returns the value of the last statement" (fun _ ->
         "5; 6" |> eval |> should (be.equalTo (JsNumber 6.0)))
     ]
+
+    describe "arithmetic" [
+      it "+ adds" (fun _ ->
+        "2 + 1" |> eval |> should (be.equalTo (JsNumber 3.0)))
+
+      it "- subtracts" (fun _ ->
+        "2 - 1" |> eval |> should (be.equalTo (JsNumber 1.0)))
+    ]
   ]

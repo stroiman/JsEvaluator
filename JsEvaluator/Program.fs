@@ -15,15 +15,26 @@ let parse input =
     Parser.start token lexbuf
 
 let eval (program : Program) =
+  let rec evalExpr = function
+    | NumberLiteral x -> JsNumber x
+    | Plus(x, y) ->
+      match (evalExpr x, evalExpr y) with
+      | JsNumber a, JsNumber b -> JsNumber (a + b)
+      | _ -> failwith "Can only subtract numbers"
+    | Minus(x, y) ->
+      match (evalExpr x, evalExpr y) with
+      | JsNumber a, JsNumber b -> JsNumber (a - b)
+      | _ -> failwith "Can only subtract numbers"
+
   let evalStmt = function
-    | ExpressionStmt (NumberLiteral x) -> JsNumber x
+    | ExpressionStmt x -> evalExpr x
 
   let rec evalStmtList = function
     | [] -> JsUndefined
     | x::[] -> evalStmt x
     | x::xs ->
       evalStmt x |> ignore
-      evalStmtList xs
+      evalStmtList xs 
 
   match program with
   | Program x -> evalStmtList x
