@@ -18,8 +18,15 @@ let eval (program : Program) =
   let evalStmt = function
     | ExpressionStmt (NumberLiteral x) -> JsNumber x
 
+  let rec evalStmtList = function
+    | [] -> JsUndefined
+    | x::[] -> evalStmt x
+    | x::xs ->
+      evalStmt x |> ignore
+      evalStmtList xs
+
   match program with
-  | Program [x] -> evalStmt x
+  | Program x -> evalStmtList x
 
 [<EntryPoint>]
 let main argv = 
