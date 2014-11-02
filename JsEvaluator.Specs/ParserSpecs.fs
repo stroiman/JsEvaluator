@@ -28,4 +28,12 @@ let specs =
     it "Parses - operators" (fun _ ->
       let expected = Minus ( NumberLiteral 2.0, NumberLiteral 1.0 ) 
       "2 - 1" |> parseSingleExpression |>should (be.equalTo expected))
+
+    it "Parses multiple statements" (fun _ ->
+      let expected = 
+        Program [
+          ExpressionStmt (NumberLiteral 1.0)
+          ExpressionStmt (NumberLiteral 2.0)
+        ]
+      "1; 2" |> JsEval.parse |> should (be.equalTo expected))
   ]

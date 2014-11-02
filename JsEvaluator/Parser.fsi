@@ -3,11 +3,13 @@ module Parser
 type token = 
   | NUMBER of ( double )
   | EOF
+  | SEMICOLON
   | MINUS
   | PLUS
 type tokenId = 
     | TOKEN_NUMBER
     | TOKEN_EOF
+    | TOKEN_SEMICOLON
     | TOKEN_MINUS
     | TOKEN_PLUS
     | TOKEN_end_of_input
@@ -16,6 +18,7 @@ type nonTerminalId =
     | NONTERM__startstart
     | NONTERM_start
     | NONTERM_statement
+    | NONTERM_statementList
     | NONTERM_expression
 /// This function maps integers indexes to symbolic token ids
 val tagOfToken: token -> int

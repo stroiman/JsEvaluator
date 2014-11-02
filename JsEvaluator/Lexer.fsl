@@ -15,5 +15,6 @@ rule token = parse
     | whitespace*   { token lexbuf }
     | '+'           { PLUS }
     | '-'           { MINUS }
+    | ';'           { SEMICOLON }
     | number        { lexbuf |> getDouble |> NUMBER }
     | eof           { EOF }

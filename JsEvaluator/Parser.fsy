@@ -3,16 +3,25 @@ open Ast
 %}
 %start start
 %token MINUS PLUS
+%token SEMICOLON
 %token EOF
 %token < double > NUMBER
 %type < Program > start
 %%
 
 start:
-    | statement EOF     { Program [ $1 ] }
+    | statementList 
+      EOF           { Program ($1 |> List.rev) }
 
 statement:
     | expression    { ExpressionStmt $1 }
+
+statementList:
+    |               { [] }
+    | statement     { [$1] }
+    | statementList
+      SEMICOLON
+      statement     { $3 :: $1 }
 
 expression:
     | NUMBER        { NumberLiteral $1 }
