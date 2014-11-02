@@ -10,6 +10,22 @@ let eval =
 
 let specs =
   describe "Js evaluation" [
+    it "can call function" (fun _ ->
+      "var x = function() { return 42 }; x()"
+      |> eval |> should (be.equalTo(JsNumber 42.0)))
+
+    it "can pass parameters to a function" (fun _ ->
+      "var x = function(a){ return a + 1 }; x(2)"
+      |> eval |> should (be.equalTo(JsNumber 3.0)))
+
+    it "can execute Fib" (fun _ ->
+      """var fib = function(n) {
+      if (n <= 1)
+        return n;
+      return fib(n-1) + fib(n-2) };
+      fib(5)"""
+      |> eval |> should (be.equalTo(JsNumber 5.0)))
+
     context "variable lookup" [
       it "returns the variable value" (fun _ ->
         "var x = 42; x" |> eval

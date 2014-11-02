@@ -4,8 +4,9 @@ type JsVariableType =
   | JsUndefined
   | JsNumber of double
   | JsString of string
-
-type Environment = {
+  | JsBool of bool
+  | JsFunction of Environment * string list * Ast.Statement list
+and Environment = {
     parent : Environment option
     mutable data : Map<string,JsVariableType>
   }
