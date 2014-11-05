@@ -43,7 +43,6 @@ let eval (env:Environment) (program : Program) =
             List.iter add argValuePaies
             evalStmtList nestedEnv body
         | x -> failwithf "Not a function: %A" x
-    | x -> failwithf "Cannot evaluate %A" x
   and evalStmtList (env:Environment) =
     let rec iter last = function
       | [] -> last
