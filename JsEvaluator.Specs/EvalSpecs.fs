@@ -48,5 +48,8 @@ let specs =
 
       it "- subtracts" (fun _ ->
         "2 - 1" |> eval |> should (be.equalTo (JsNumber 1.0)))
+
+      it "is left-associative" (fun _ ->
+        "6 - 3 - 1" |> eval |> should (be.equalTo (JsNumber 2.0)))
     ]
   ]

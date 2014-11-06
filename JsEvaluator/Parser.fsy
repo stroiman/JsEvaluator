@@ -9,6 +9,8 @@ open Ast
 %token < string > IDENTIFIER
 %token < double > NUMBER
 %type < Program > start
+
+%left MINUS PLUS
 %%
 
 start:
