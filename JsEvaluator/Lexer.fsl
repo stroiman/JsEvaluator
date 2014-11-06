@@ -18,8 +18,14 @@ let char = ['a'-'z' 'A'-'Z']
 let identifier = char+
 let whitespace = [' ' '\t' '\r' '\n']
 
+// This generates the function 'token' in Lexer.fs. The code in the
+// curly braces becomes actual F# code generating the return value
+// for the token function, when that specific rule has been matched. 
+// Because the code used here returns a token, as defined in the
+// parser.fsy file, then that becomes the return type of the token
+// function.
 rule token = parse
-    | whitespace*   { token lexbuf }
+    | whitespace+   { token lexbuf }
     | '+'           { PLUS }
     | '-'           { MINUS }
     | ';'           { SEMICOLON }
@@ -30,9 +36,16 @@ rule token = parse
     | ','           { COMMA }
     | '='           { EQUAL }
     | "<="          { LESSOREQUAL }
-    | identifier    { let str = lexbuf |> getString 
+    | identifier    { // Check if the recognized identifier is in the
+                      // list of keywords
+                      let str = lexbuf |> getString 
                       match keywords.TryFind str with
-                      | Some x -> x
-                      | None -> IDENTIFIER str }
+                      | Some x -> 
+                          // Yes, we found the identifier in the list of keyword. 
+                          // Return the token representing the keywork
+                          x 
+                      | None -> 
+                          // No, the identifier was not a recognized keyword. Return an identifier token.
+                          IDENTIFIER str }
     | number        { lexbuf |> getDouble |> NUMBER }
     | eof           { EOF }
