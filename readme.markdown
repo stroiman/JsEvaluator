@@ -9,6 +9,19 @@ syntax. But this is no where near a complete parser. It is only meant to
 demonstrate some of the principles of parsing input, generating syntax trees,
 and consuming these in an evaluator.
 
+### Building code ###
+
+I have used the `paket` package manager. To get started run the following
+
+    paket.bootstrapper.exe
+    paket install
+
+The bootstrapper downloads the actual package manager, and the install command
+installs the packages. Once packages are installed, you can build from Visual
+Studio, or from the command line with
+
+    msbuild build.proj
+
 ### Using `identifier` rules for keywords
 
 During my talk, I mentioned that the generated lexer could be simplified by

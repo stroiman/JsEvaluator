@@ -79,160 +79,6 @@
         <When Condition="$(TargetFrameworkVersion) == 'v2.0'">
         </When>
         <When Condition="$(TargetFrameworkVersion) == 'v3.5'">
-        </When>
-        <Otherwise>
-          <ItemGroup>
-            <Reference Include="FSpec">
-              <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
-          </ItemGroup>
-        </Otherwise>
-      </Choose>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'MonoAndroid'">
-      <ItemGroup>
-        <Reference Include="FSpec">
-          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'MonoTouch'">
-      <ItemGroup>
-        <Reference Include="FSpec">
-          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'Silverlight'">
-      <ItemGroup>
-        <Reference Include="FSpec">
-          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'Windows'">
-      <ItemGroup>
-        <Reference Include="FSpec">
-          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'WindowsPhoneApp'">
-      <ItemGroup>
-        <Reference Include="FSpec">
-          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="FSpec">
-          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework'">
-      <Choose>
-        <When Condition="$(TargetFrameworkVersion) == 'v1.0'">
-        </When>
-        <When Condition="$(TargetFrameworkVersion) == 'v1.1'">
-        </When>
-        <When Condition="$(TargetFrameworkVersion) == 'v2.0'">
-        </When>
-        <When Condition="$(TargetFrameworkVersion) == 'v3.5'">
-        </When>
-        <Otherwise>
-          <ItemGroup>
-            <Reference Include="FSpec.MbUnitWrapper">
-              <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
-          </ItemGroup>
-        </Otherwise>
-      </Choose>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'MonoAndroid'">
-      <ItemGroup>
-        <Reference Include="FSpec.MbUnitWrapper">
-          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'MonoTouch'">
-      <ItemGroup>
-        <Reference Include="FSpec.MbUnitWrapper">
-          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'Silverlight'">
-      <ItemGroup>
-        <Reference Include="FSpec.MbUnitWrapper">
-          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'Windows'">
-      <ItemGroup>
-        <Reference Include="FSpec.MbUnitWrapper">
-          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="$(TargetFrameworkIdentifier) == 'WindowsPhoneApp'">
-      <ItemGroup>
-        <Reference Include="FSpec.MbUnitWrapper">
-          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="FSpec.MbUnitWrapper">
-          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework'">
-      <Choose>
-        <When Condition="$(TargetFrameworkVersion) == 'v1.0'">
-        </When>
-        <When Condition="$(TargetFrameworkVersion) == 'v1.1'">
-        </When>
-        <When Condition="$(TargetFrameworkVersion) == 'v2.0'">
-        </When>
-        <When Condition="$(TargetFrameworkVersion) == 'v3.5'">
           <ItemGroup>
             <Reference Include="Gallio">
               <HintPath>..\packages\mbunit\lib\net35\Gallio.dll</HintPath>
@@ -258,6 +104,16 @@
         </When>
         <Otherwise>
           <ItemGroup>
+            <Reference Include="FSpec.MbUnitWrapper">
+              <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="FSpec">
+              <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="Gallio">
               <HintPath>..\packages\mbunit\lib\net40\Gallio.dll</HintPath>
               <Private>True</Private>
@@ -284,6 +140,16 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'MonoAndroid'">
       <ItemGroup>
+        <Reference Include="FSpec.MbUnitWrapper">
+          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="FSpec">
+          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Gallio">
           <HintPath>..\packages\mbunit\lib\net40\Gallio.dll</HintPath>
           <Private>True</Private>
@@ -308,6 +174,16 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'MonoTouch'">
       <ItemGroup>
+        <Reference Include="FSpec.MbUnitWrapper">
+          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="FSpec">
+          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Gallio">
           <HintPath>..\packages\mbunit\lib\net40\Gallio.dll</HintPath>
           <Private>True</Private>
@@ -332,6 +208,16 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'Silverlight'">
       <ItemGroup>
+        <Reference Include="FSpec.MbUnitWrapper">
+          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="FSpec">
+          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Gallio">
           <HintPath>..\packages\mbunit\lib\net40\Gallio.dll</HintPath>
           <Private>True</Private>
@@ -356,6 +242,16 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'Windows'">
       <ItemGroup>
+        <Reference Include="FSpec.MbUnitWrapper">
+          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="FSpec">
+          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Gallio">
           <HintPath>..\packages\mbunit\lib\net40\Gallio.dll</HintPath>
           <Private>True</Private>
@@ -380,6 +276,16 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'WindowsPhoneApp'">
       <ItemGroup>
+        <Reference Include="FSpec.MbUnitWrapper">
+          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="FSpec">
+          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Gallio">
           <HintPath>..\packages\mbunit\lib\net40\Gallio.dll</HintPath>
           <Private>True</Private>
@@ -404,6 +310,16 @@
     </When>
     <Otherwise>
       <ItemGroup>
+        <Reference Include="FSpec.MbUnitWrapper">
+          <HintPath>..\packages\FSpec.MbUnitWrapper\lib\net40\FSpec.MbUnitWrapper.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="FSpec">
+          <HintPath>..\packages\fspec\lib\net40\FSpec.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Gallio">
           <HintPath>..\packages\mbunit\lib\net40\Gallio.dll</HintPath>
           <Private>True</Private>
