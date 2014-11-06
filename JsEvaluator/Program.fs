@@ -14,7 +14,7 @@ let parse input =
     let lexbuf = LexBuffer<_>.FromString input
     Parser.start token lexbuf
 
-let eval (env:Environment) (program : Program) =
+let eval (env:Environment) (Program statementList) =
     let rec evalExpr (env:Environment) = function
       | NumberLiteral x -> JsNumber x
       | Plus(x, y) ->
@@ -34,35 +34,51 @@ let eval (env:Environment) (program : Program) =
           JsFunction(env,args, body)
       | FunctionInvocation(f,ps) ->
           let fObj = evalExpr env f
-          let parameters = ps |> List.map (evalExpr env)
           match fObj with
-          | JsFunction (env,args,body) ->
-              let nestedEnv = env |> Environment.CreateChild
-              let add (a,p) : unit = nestedEnv.Add a p
-              let argValuePaies = List.zip args parameters
-              List.iter add argValuePaies
+          | JsFunction (funcEnv,argNames,body) ->
+              // When a function is called, create a new Environment that is
+              // the child of the environment _in which the function was defined_.
+              let nestedEnv = funcEnv |> Environment.CreateChild
+              // Evaluate the value for the parameters of the function
+              let parameters = ps |> List.map (evalExpr env)
+              // Add them to this nested frame, using the arguments' names as keys.
+              let addParameterToEnvironment (arg,parameter) : unit = nestedEnv.Add arg parameter
+              // Just zip the argument names with parameter values, will fail
+              // if the two lists don't have the same length. 
+              let argValuePairs = List.zip argNames parameters
+              List.iter addParameterToEnvironment argValuePairs
+              // Evaluate the function body using the new environment
               evalStmtList nestedEnv body
           | x -> failwithf "Not a function: %A" x
     and evalStmtList (env:Environment) =
-        let rec iter last = function
-          | [] -> last
+        // Evaluate the result of a statement list. The last value produced
+        // by a statement becomes the return value for the statement list if
+        // no explicit return statement is specified.
+        // The simplest way to accomplish this is call the function 
+        // tail-recursively with the value of the last evaluated value as
+        // a parameter, and return that value when we reach the end of the list.
+        let rec iter lastValue = function
+          | [] -> lastValue
           | x::xs ->
               match x with
               | ReturnStmt y -> evalExpr env y
-              | If(c,b) ->
-                  match evalExpr env c with
-                  | JsBool(true) -> evalStmtList env (b@xs)
-                  | JsBool(false) -> evalStmtList env xs
+              | If(cond,body) ->
+                  match evalExpr env cond with
+                  | JsBool(true) -> 
+                      // If the expression is true, generate a new statement list
+                      // consisting of the if's body and the rest of the evaluated
+                      // list.
+                      iter lastValue (body@xs)
+                  | JsBool(false) -> iter lastValue xs
                   | x -> failwith "Not a boolean value: %A" x
               | ExpressionStmt x -> iter (evalExpr env x) xs
               | VariableDefinition (n,x) ->
                   let value = evalExpr env x
                   env.Add n value
-                  iter last xs
+                  iter lastValue xs
         iter JsUndefined
 
-    match program with
-    | Program x -> evalStmtList env x
+    evalStmtList env statementList
 
 [<EntryPoint>]
 let main argv = 

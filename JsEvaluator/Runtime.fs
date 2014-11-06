@@ -5,6 +5,8 @@ type JsVariableType =
   | JsNumber of double
   | JsString of string
   | JsBool of bool
+  // When a function is created, it contains a reference to the
+  // environment in which it was created.
   | JsFunction of Environment * string list * Ast.Statement list
 and Environment = {
     parent : Environment option
