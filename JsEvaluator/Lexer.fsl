@@ -5,6 +5,11 @@ open Parser
 
 let getString = LexBuffer<_>.LexemeString
 let getDouble = getString >> System.Double.Parse
+let keywords = [
+    ("if", IF)
+    ("var", VAR)
+    ("return", RET)
+    ("function", FUNCTION)] |> Map.ofList
 }
 
 let digit = ['0' - '9']
@@ -25,10 +30,9 @@ rule token = parse
     | ','           { COMMA }
     | '='           { EQUAL }
     | "<="          { LESSOREQUAL }
-    | "if"          { IF }
-    | "var"         { VAR }
-    | "return"      { RET }
-    | "function"    { FUNCTION }
-    | identifier    { lexbuf |> getString |> IDENTIFIER }
+    | identifier    { let str = lexbuf |> getString 
+                      match keywords.TryFind str with
+                      | Some x -> x
+                      | None -> IDENTIFIER str }
     | number        { lexbuf |> getDouble |> NUMBER }
     | eof           { EOF }
